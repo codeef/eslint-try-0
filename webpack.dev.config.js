@@ -101,27 +101,6 @@ module.exports = (env) => {
 
     resolve: {
       extensions: ['.tsx', '.ts', '.jsx', '.js'],
-      alias: {
-        // the aliases solve the issue with npm/yarn link
-        'react/jsx-runtime': require.resolve('react/jsx-runtime'),
-        react: require.resolve('react'),
-        // we need this alias because the calendar package uses component-lib as a peer dependency and
-        // because of that, when we yarn link the calendar package it uses the copy of
-        // the component-lib it has under its node_modules. this causes an issue
-        // with @emotion/react having a double copy. this alias instruct it to use
-        // the component-lib copy that we use in the app (the one that is directlry
-        // in node_modules/@atbay)
-        '@atbay/component-lib': path.resolve(
-          './node_modules/@atbay/component-lib',
-        ),
-        // this alias is for the same reason as the previous one just for when
-        // we link component-lib and use the remote package of theming
-        '@atbay/theming': path.resolve('./node_modules/@atbay/theming'),
-        // since we use the theming package we also need to make an alias for @emotion/react when we
-        // make a link to component-lib or theming (when we link both it works without this alias)
-        '@emotion/react': path.resolve('./node_modules/@emotion/react'),
-        // '@mui/material': path.resolve('./node_modules/@mui/material'), // only needed if material ui is a dependency
-      },
     },
     devtool: 'source-map',
     plugins: [
